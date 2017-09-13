@@ -27,6 +27,15 @@ namespace EnvironmentEdit
             for (int i = 0; i < variables.Count; i++)
             {
                 ListViewItem VariableItem = new ListViewItem(variables[i].Name);
+
+                string CombinedDataString = "";
+                for (int j = 0; j < variables[i].Data.Count; j++)
+                {
+                    CombinedDataString += variables[i].Data[j].DataString;
+                    CombinedDataString += ";";
+                }
+                VariableItem.SubItems.Add(CombinedDataString);
+
                 VariableListView.Items.Add(VariableItem);
             }
         }
