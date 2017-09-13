@@ -12,7 +12,8 @@ namespace EnvironmentEdit
 {
     public partial class Main : Form
     {
-        private List<Variable> variables;
+        private List<Variable> UserVariables;
+        private List<Variable> SystemVariables;
         RegistryController RegControl = new RegistryController();
 
         public Main()
@@ -28,16 +29,16 @@ namespace EnvironmentEdit
 
         private void LoadUserVariables()
         {
-            variables = RegControl.LoadUserFromRegistry();
+            UserVariables = RegControl.LoadUserFromRegistry();
 
-            for (int i = 0; i < variables.Count; i++)
+            for (int i = 0; i < UserVariables.Count; i++)
             {
-                ListViewItem VariableItem = new ListViewItem(variables[i].Name);
+                ListViewItem VariableItem = new ListViewItem(UserVariables[i].Name);
 
                 string CombinedDataString = "";
-                for (int j = 0; j < variables[i].Data.Count; j++)
+                for (int j = 0; j < UserVariables[i].Data.Count; j++)
                 {
-                    CombinedDataString += variables[i].Data[j].DataString;
+                    CombinedDataString += UserVariables[i].Data[j].DataString;
                     CombinedDataString += ";";
                 }
                 VariableItem.SubItems.Add(CombinedDataString);
@@ -48,16 +49,16 @@ namespace EnvironmentEdit
 
         private void LoadSystemVariables()
         {
-            variables = RegControl.LoadSystemFromRegistry();
+            SystemVariables = RegControl.LoadSystemFromRegistry();
 
-            for (int i = 0; i < variables.Count; i++)
+            for (int i = 0; i < SystemVariables.Count; i++)
             {
-                ListViewItem VariableItem = new ListViewItem(variables[i].Name);
+                ListViewItem VariableItem = new ListViewItem(SystemVariables[i].Name);
 
                 string CombinedDataString = "";
-                for (int j = 0; j < variables[i].Data.Count; j++)
+                for (int j = 0; j < SystemVariables[i].Data.Count; j++)
                 {
-                    CombinedDataString += variables[i].Data[j].DataString;
+                    CombinedDataString += SystemVariables[i].Data[j].DataString;
                     CombinedDataString += ";";
                 }
                 VariableItem.SubItems.Add(CombinedDataString);
