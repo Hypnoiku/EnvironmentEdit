@@ -66,5 +66,10 @@ namespace EnvironmentEdit
                 VariableListView.Items.Add(VariableItem);
             }
         }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
