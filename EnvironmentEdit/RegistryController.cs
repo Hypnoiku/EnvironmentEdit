@@ -22,6 +22,20 @@ namespace EnvironmentEdit
             return variables;
         }
 
+        public List<Variable> LoadSystemFromRegistry()
+        {
+            RegistryKey EnvironmentKey =
+                Registry.LocalMachine.OpenSubKey("SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Environment");
+            String[] VarNames = EnvironmentKey.GetValueNames();
+            String[] VarData = KeyDataToArray(EnvironmentKey, VarNames);
+
+            VariableController varControl = new VariableController(); ;
+
+            List<Variable> variables = varControl.CreateListOfVariables(VarNames, VarData, 0);
+
+            return variables;
+        }
+
         private String[] KeyDataToArray(RegistryKey key, String[] VarNames)
         {
             String[] KeyList = new String[key.ValueCount];
