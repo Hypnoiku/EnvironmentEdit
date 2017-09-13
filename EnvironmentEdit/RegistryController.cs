@@ -31,7 +31,7 @@ namespace EnvironmentEdit
 
             VariableController varControl = new VariableController(); ;
 
-            List<Variable> variables = varControl.CreateListOfVariables(VarNames, VarData, 0);
+            List<Variable> variables = varControl.CreateListOfVariables(VarNames, VarData, 1);
 
             return variables;
         }
