@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("User Variables", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("System Variables", System.Windows.Forms.HorizontalAlignment.Left);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newVariableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -108,6 +110,13 @@
             this.columnName,
             this.columnData});
             this.VariableListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            listViewGroup1.Header = "User Variables";
+            listViewGroup1.Name = "UserVars";
+            listViewGroup2.Header = "System Variables";
+            listViewGroup2.Name = "SystemVars";
+            this.VariableListView.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
+            listViewGroup1,
+            listViewGroup2});
             this.VariableListView.Location = new System.Drawing.Point(0, 24);
             this.VariableListView.Name = "VariableListView";
             this.VariableListView.Size = new System.Drawing.Size(666, 391);
