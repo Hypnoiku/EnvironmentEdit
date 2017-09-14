@@ -79,6 +79,7 @@
             // 
             // CancelB
             // 
+            this.CancelB.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.CancelB.Location = new System.Drawing.Point(497, 68);
             this.CancelB.Name = "CancelB";
             this.CancelB.Size = new System.Drawing.Size(75, 23);
@@ -88,8 +89,10 @@
             // 
             // VarEditGUI
             // 
+            this.AcceptButton = this.OKB;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.CancelB;
             this.ClientSize = new System.Drawing.Size(584, 103);
             this.Controls.Add(this.CancelB);
             this.Controls.Add(this.OKB);
@@ -97,6 +100,7 @@
             this.Controls.Add(this.NameTB);
             this.Controls.Add(this.DataL);
             this.Controls.Add(this.NameL);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "VarEditGUI";
@@ -104,6 +108,7 @@
             this.ShowInTaskbar = false;
             this.Text = "Edit Variable";
             this.TopMost = true;
+            this.Load += new System.EventHandler(this.VarEditGUI_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
