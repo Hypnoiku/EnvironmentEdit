@@ -107,10 +107,12 @@
             // 
             // VariableListView
             // 
+            this.VariableListView.Activation = System.Windows.Forms.ItemActivation.TwoClick;
             this.VariableListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnName,
             this.columnData});
             this.VariableListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.VariableListView.FullRowSelect = true;
             listViewGroup1.Header = "User Variables";
             listViewGroup1.Name = "UserVars";
             listViewGroup2.Header = "System Variables";
@@ -124,6 +126,7 @@
             this.VariableListView.TabIndex = 3;
             this.VariableListView.UseCompatibleStateImageBehavior = false;
             this.VariableListView.View = System.Windows.Forms.View.Details;
+            this.VariableListView.ItemActivate += new System.EventHandler(this.VariableListView_ItemActivate);
             // 
             // columnName
             // 
