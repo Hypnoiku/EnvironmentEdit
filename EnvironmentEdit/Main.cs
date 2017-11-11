@@ -17,6 +17,8 @@ namespace EnvironmentEdit
         RegistryController RegControl = new RegistryController();
         VariableController VarControl = new VariableController();
 
+        private bool DEBUGEdit = false;
+
         public Main()
         {
             InitializeComponent();
@@ -32,41 +34,53 @@ namespace EnvironmentEdit
         private void LoadUserVariables()
         {
             UserVariables = RegControl.LoadUserFromRegistry();
-
-            for (int i = 0; i < UserVariables.Count; i++)
-            {
-                ListViewItem VariableItem = new ListViewItem(UserVariables[i].Name);
-
-                string CombinedDataString = "";
-                for (int j = 0; j < UserVariables[i].Data.Count; j++)
-                {
-                    CombinedDataString += UserVariables[i].Data[j].DataString;
-                    CombinedDataString += ";";
-                }
-                VariableItem.SubItems.Add(CombinedDataString);
-                VariableItem.Group = VariableListView.Groups[0];
-                VariableListView.Items.Add(VariableItem);
-            }
+            LoadVarListView(UserVariables, 0);
         }
 
         private void LoadSystemVariables()
         {
             SystemVariables = RegControl.LoadSystemFromRegistry();
+            LoadVarListView(SystemVariables, 1);
+        }
 
-            for (int i = 0; i < SystemVariables.Count; i++)
+        //VarType = 0; User Variable
+        //VarType = 1; System Variable
+        private void LoadVarListView(List<Variable> Variables, int VarType)
+        {
+            for (int i = 0; i < Variables.Count; i++)
             {
-                ListViewItem VariableItem = new ListViewItem(SystemVariables[i].Name);
+                ListViewItem VariableItem = new ListViewItem(Variables[i].Name);
 
                 string CombinedDataString = "";
-                for (int j = 0; j < SystemVariables[i].Data.Count; j++)
+                for (int j = 0; j < Variables[i].Data.Count; j++)
                 {
-                    CombinedDataString += SystemVariables[i].Data[j].DataString;
+                    CombinedDataString += Variables[i].Data[j].DataString;
                     CombinedDataString += ";";
                 }
                 VariableItem.SubItems.Add(CombinedDataString);
-                VariableItem.Group = VariableListView.Groups[1];
+
+                if (DEBUGEdit)
+                {
+                    if (Variables[i].Editing)
+                    {
+                        VariableItem.SubItems.Add("TRUE");
+                    }
+                    else
+                    {
+                        VariableItem.SubItems.Add("FALSE");
+                    }
+                }
+
+                VariableItem.Group = VariableListView.Groups[VarType];
                 VariableListView.Items.Add(VariableItem);
             }
+        }
+
+        public void UpdateVarListView()
+        {
+            VariableListView.Items.Clear();
+            LoadVarListView(UserVariables, 0);
+            LoadVarListView(SystemVariables, 1);
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -79,13 +93,39 @@ namespace EnvironmentEdit
             VarEditGUI VEGUI = new VarEditGUI();
             if (VariableListView.SelectedItems[0].Group.Name == "UserVars")
             {
+                UserVariables = VarControl.FindVariableSetEdit(VariableListView.SelectedItems[0].Text, UserVariables);
                 VEGUI.SendToEditor(VarControl.FindVariableInList(VariableListView.SelectedItems[0].Text, UserVariables));
             }
             else if (VariableListView.SelectedItems[0].Group.Name == "SystemVars")
             {
+                SystemVariables = VarControl.FindVariableSetEdit(VariableListView.SelectedItems[0].Text, SystemVariables);
                 VEGUI.SendToEditor(VarControl.FindVariableInList(VariableListView.SelectedItems[0].Text, SystemVariables));
             }
             VEGUI.Show();
+        }
+
+        private void showEditingStatusToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (showEditingStatusToolStripMenuItem.Checked == false)
+            {
+                VariableListView.BeginUpdate();
+                DEBUGEdit = true;
+                VariableListView.Columns.Add("Editing?");
+                UpdateVarListView();
+                VariableListView.EndUpdate();
+
+                showEditingStatusToolStripMenuItem.Checked = true;
+            }
+            else
+            {
+                VariableListView.BeginUpdate();
+                DEBUGEdit = false;
+                VariableListView.Columns.RemoveAt(2);
+                UpdateVarListView();
+                VariableListView.EndUpdate();
+
+                showEditingStatusToolStripMenuItem.Checked = false;
+            }
         }
     }
 }
