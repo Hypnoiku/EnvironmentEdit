@@ -29,21 +29,27 @@ namespace EnvironmentEdit
             return variables;
         }
 
-        public Variable FindVariableInList(String Name, List<Variable> variables, bool SetEdit)
+        public List<Variable> FindVariableSetEdit(String Name, List<Variable> variables)
         {
             for (int i = 0; i < variables.Count; i++)
             {
                 if (Name == variables[i].Name)
                 {
-                    if (SetEdit)
-                    {
-                        variables[i] = SetEditor(variables[i], true);
-                    }
-                    else
-                    {
-                        return variables[i];
-                    }
+                    variables[i] = SetEditor(variables[i], true);
+                    return variables;
+                }
+            }
 
+            return ReturnVarNotFoundERR();
+        }
+
+        public Variable FindVariableInList(String Name, List<Variable> variables)
+        {
+            for (int i = 0; i < variables.Count; i++)
+            {
+                if (Name == variables[i].Name)
+                {
+                    return variables[i];
                 }
             }
 
@@ -62,15 +68,20 @@ namespace EnvironmentEdit
                 }
             }
 
-            List<Variable> errNotFound = new List<Variable>();
-            errNotFound.Add(new Variable("ERR_VAR_NOT_FOUND"));
-            return errNotFound;
+            return ReturnVarNotFoundERR();
         }
 
         private Variable SetEditor(Variable variable, bool EditorStatus)
         {
             variable.Editing = EditorStatus;
             return variable;
+        }
+
+        private List<Variable> ReturnVarNotFoundERR()
+        {
+            List<Variable> errNotFound = new List<Variable>();
+            errNotFound.Add(new Variable("ERR_VAR_NOT_FOUND"));
+            return errNotFound;
         }
     }
 }
