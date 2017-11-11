@@ -76,6 +76,7 @@
             this.OKB.TabIndex = 4;
             this.OKB.Text = "OK";
             this.OKB.UseVisualStyleBackColor = true;
+            this.OKB.Click += new System.EventHandler(this.OKB_Click);
             // 
             // CancelB
             // 
@@ -86,6 +87,7 @@
             this.CancelB.TabIndex = 5;
             this.CancelB.Text = "Cancel";
             this.CancelB.UseVisualStyleBackColor = true;
+            this.CancelB.Click += new System.EventHandler(this.CancelB_Click);
             // 
             // VarEditGUI
             // 
