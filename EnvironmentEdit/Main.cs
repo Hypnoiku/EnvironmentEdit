@@ -15,6 +15,7 @@ namespace EnvironmentEdit
         private List<Variable> UserVariables;
         private List<Variable> SystemVariables;
         RegistryController RegControl = new RegistryController();
+        VariableController VarControl = new VariableController();
 
         public Main()
         {
@@ -23,6 +24,7 @@ namespace EnvironmentEdit
 
         private void Main_Load(object sender, EventArgs e)
         {
+            MessageBox.Show(this, "EnvironmentEdit can only read variables currently!");
             LoadUserVariables();
             LoadSystemVariables();
         }
@@ -70,6 +72,20 @@ namespace EnvironmentEdit
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void VariableListView_ItemActivate(object sender, EventArgs e)
+        {
+            VarEditGUI VEGUI = new VarEditGUI();
+            if (VariableListView.SelectedItems[0].Group.Name == "UserVars")
+            {
+                VEGUI.SendToEditor(VarControl.FindVariableInList(VariableListView.SelectedItems[0].Text, UserVariables));
+            }
+            else if (VariableListView.SelectedItems[0].Group.Name == "SystemVars")
+            {
+                VEGUI.SendToEditor(VarControl.FindVariableInList(VariableListView.SelectedItems[0].Text, SystemVariables));
+            }
+            VEGUI.Show();
         }
     }
 }
