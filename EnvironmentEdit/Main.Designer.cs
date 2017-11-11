@@ -38,11 +38,13 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dEBUGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showEditingStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.VariableListView = new System.Windows.Forms.ListView();
             this.columnName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnData = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.dEBUGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showEditingStatusToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -108,6 +110,23 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
             // 
+            // dEBUGToolStripMenuItem
+            // 
+            this.dEBUGToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showEditingStatusToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.refreshToolStripMenuItem});
+            this.dEBUGToolStripMenuItem.Name = "dEBUGToolStripMenuItem";
+            this.dEBUGToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
+            this.dEBUGToolStripMenuItem.Text = "DEBUG";
+            // 
+            // showEditingStatusToolStripMenuItem
+            // 
+            this.showEditingStatusToolStripMenuItem.Name = "showEditingStatusToolStripMenuItem";
+            this.showEditingStatusToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.showEditingStatusToolStripMenuItem.Text = "Show editing status";
+            this.showEditingStatusToolStripMenuItem.Click += new System.EventHandler(this.showEditingStatusToolStripMenuItem_Click);
+            // 
             // VariableListView
             // 
             this.VariableListView.Activation = System.Windows.Forms.ItemActivation.TwoClick;
@@ -141,20 +160,17 @@
             this.columnData.Text = "Data";
             this.columnData.Width = 507;
             // 
-            // dEBUGToolStripMenuItem
+            // refreshToolStripMenuItem
             // 
-            this.dEBUGToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showEditingStatusToolStripMenuItem});
-            this.dEBUGToolStripMenuItem.Name = "dEBUGToolStripMenuItem";
-            this.dEBUGToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
-            this.dEBUGToolStripMenuItem.Text = "DEBUG";
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.refreshToolStripMenuItem.Text = "Refresh";
+            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
-            // showEditingStatusToolStripMenuItem
+            // toolStripSeparator1
             // 
-            this.showEditingStatusToolStripMenuItem.Name = "showEditingStatusToolStripMenuItem";
-            this.showEditingStatusToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.showEditingStatusToolStripMenuItem.Text = "Show editing status";
-            this.showEditingStatusToolStripMenuItem.Click += new System.EventHandler(this.showEditingStatusToolStripMenuItem_Click);
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(174, 6);
             // 
             // Main
             // 
@@ -189,6 +205,8 @@
         private System.Windows.Forms.ColumnHeader columnData;
         private System.Windows.Forms.ToolStripMenuItem dEBUGToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showEditingStatusToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
     }
 }
 

@@ -127,5 +127,12 @@ namespace EnvironmentEdit
                 showEditingStatusToolStripMenuItem.Checked = false;
             }
         }
+
+        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            VariableListView.BeginUpdate();
+            UpdateVarListView();
+            VariableListView.EndUpdate();
+        }
     }
 }
