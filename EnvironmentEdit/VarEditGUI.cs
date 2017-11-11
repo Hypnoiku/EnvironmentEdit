@@ -28,7 +28,6 @@ namespace EnvironmentEdit
         public void SendToEditor(Variable newVar)
         {
             variable = newVar;
-            VarControl.SetEditor(variable, true);
             LoadEditor();
         }
 
@@ -45,6 +44,7 @@ namespace EnvironmentEdit
         private void CancelB_Click(object sender, EventArgs e)
         {
             this.Close();
+            
         }
 
         private void OKB_Click(object sender, EventArgs e)
