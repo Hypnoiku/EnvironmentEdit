@@ -60,7 +60,7 @@ namespace EnvironmentEdit
         {
             for (int i = 0; i < variables.Count; i++)
             {
-                if (variables[i].Editing = true)
+                if (variables[i].Editing)
                 {
                     variable = SetEditor(variable, false);
                     variables[i] = variable;
