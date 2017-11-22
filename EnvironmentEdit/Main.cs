@@ -90,18 +90,17 @@ namespace EnvironmentEdit
 
         private void VariableListView_ItemActivate(object sender, EventArgs e)
         {
-            VarEditGUI VEGUI = new VarEditGUI();
+            VarEditGUI VEGUI = new VarEditGUI(this);
             if (VariableListView.SelectedItems[0].Group.Name == "UserVars")
             {
-                UserVariables = VarControl.FindVariableSetEdit(VariableListView.SelectedItems[0].Text, UserVariables);
+                UserVariables = VarControl.SetEdit(VariableListView.SelectedItems[0].Text, UserVariables, true);
                 VEGUI.SendToEditor(VarControl.FindVariableInList(VariableListView.SelectedItems[0].Text, UserVariables));
             }
             else if (VariableListView.SelectedItems[0].Group.Name == "SystemVars")
             {
-                SystemVariables = VarControl.FindVariableSetEdit(VariableListView.SelectedItems[0].Text, SystemVariables);
+                SystemVariables = VarControl.SetEdit(VariableListView.SelectedItems[0].Text, SystemVariables, true);
                 VEGUI.SendToEditor(VarControl.FindVariableInList(VariableListView.SelectedItems[0].Text, SystemVariables));
             }
-            VEGUI.Show();
         }
 
         private void showEditingStatusToolStripMenuItem_Click(object sender, EventArgs e)
@@ -130,6 +129,52 @@ namespace EnvironmentEdit
 
         private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            VariableListView.BeginUpdate();
+            UpdateVarListView();
+            VariableListView.EndUpdate();
+        }
+
+        public void updateVar(Variable variable)
+        {
+            if (variable.UserType == 0)
+            {
+                UserVariables = VarControl.ReturnVariableToList(UserVariables, variable);
+                UserVariables = VarControl.SetEdit(variable.Name, UserVariables, false);
+            }
+            else if (variable.UserType == 1)
+            {
+                SystemVariables = VarControl.ReturnVariableToList(SystemVariables, variable);
+                SystemVariables = VarControl.SetEdit(variable.Name, SystemVariables, false);
+            }
+
+            VariableListView.BeginUpdate();
+            UpdateVarListView();
+            VariableListView.EndUpdate();
+        }
+
+        public void overwriteVar(Variable variable, Variable oldVar)
+        {
+            int pos = 0;
+
+            if (variable.UserType == 0 && oldVar.UserType == 0)
+            {
+                pos = VarControl.FindPosInList(UserVariables, oldVar);
+                UserVariables = VarControl.DeleteVar(UserVariables, oldVar);
+                UserVariables = VarControl.insertAt(UserVariables, variable, pos);
+                UserVariables = VarControl.SetEdit(variable.Name, UserVariables, false);
+            }
+            else if (variable.UserType == 1 && oldVar.UserType == 1)
+            {
+                pos = VarControl.FindPosInList(SystemVariables, oldVar);
+                SystemVariables = VarControl.DeleteVar(SystemVariables, oldVar);
+                SystemVariables = VarControl.insertAt(SystemVariables, variable, pos);
+                SystemVariables = VarControl.SetEdit(variable.Name, SystemVariables, false);
+            }
+            else
+            {
+                MessageBox.Show(this, "UserType changed!");
+            }
+
             VariableListView.BeginUpdate();
             UpdateVarListView();
             VariableListView.EndUpdate();
