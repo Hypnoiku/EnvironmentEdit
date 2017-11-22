@@ -18,7 +18,7 @@ namespace EnvironmentEdit
 
     public class Variable
     {
-        public string Name { get; }
+        public string Name { get; set; }
         public List<Data> Data = new List<Data>();
         public int UserType { get; } //0 for user variable; 1 for system variable
         public bool Editing { get; set; }
